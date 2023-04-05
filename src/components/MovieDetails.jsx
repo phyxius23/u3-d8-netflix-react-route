@@ -86,10 +86,17 @@ const MovieDetails = () => {
                 {/*  */}
                 <Col sm={12} md={12}>
                   <p>{movie.Plot}</p>
-                  <Badge bg="secondary" className="me-3">
-                    {movie.Year}
-                  </Badge>
-                  <Badge bg="secondary">{movie.Runtime}</Badge>
+                  <div className="d-flex">
+                    <Badge bg="secondary" className="me-3">
+                      {movie.Year}
+                    </Badge>
+                    <Badge bg="secondary" className="me-3">
+                      {movie.Runtime}
+                    </Badge>
+                    <Badge bg="secondary" className="ms-auto">
+                      Rate: {movie.imdbRating}
+                    </Badge>
+                  </div>
                 </Col>
 
                 <Col sm={6} md={6} className="cast mt-3">

@@ -183,7 +183,19 @@ h1, h2, h3 {
   object-fit: cover;
   object-position: top;
 }
+.home .card img {
+  min-height: 330px;
+  object-fit: cover;
+}
 
+.home button {
+  display: block;
+  width: 100%;
+}
+
+button.btn-danger {
+  background-color: #e52213;
+}
 
 /**
 * FOOTER

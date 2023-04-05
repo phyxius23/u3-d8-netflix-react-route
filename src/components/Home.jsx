@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Image, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Container, Row, Spinner } from "react-bootstrap";
+import SingleMovie from "./SingleMovie";
 
 const Home = (props) => {
-  // state = {
-  //   searchFilm: this.props.search,
-  //   error: false,
-  //   errorMessage: "",
-  //   films: [],
-  //   isLoading: true
-  // };
-  // const [searchFilm, setSearchFilm] = useState(props.search);
-  const [error, setError] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
   const [films, setFilms] = useState([]);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchShowFilm = async () => {
@@ -26,34 +18,28 @@ const Home = (props) => {
         const data = await response.json();
         console.log("fetch funzionante: ", data.Search);
 
-        // this.setState({films: data.Search, isLoading: false});
         setFilms(data.Search);
         setIsLoading(false);
       } else {
-        // this.setState({error: true, isLoading: false});
         setError(true);
         setIsLoading(false);
       }
     } catch (error) {
       console.log("Errore: ", error.message);
-      // this.setState({error: true, errorMessage: error.message, isLoading: false});
       setError(true);
-      // setErrorMessage(error.message);
+      setErrorMessage(error.message);
       setIsLoading(false);
     }
   };
 
-  // componentDidMount = () => {
-  //   this.fetchShowFilm();
-  // }
   useEffect(() => {
     fetchShowFilm();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <section>
-      <div className="films mb-5">
+    <section className="home">
+      <div className="mb-5">
         <Container>
           {/* POSIZIONARE UN CONDIZIONALE CHE NEL CASO NON FOSSERO STATI TROVATI DEI FILM DEVE MOSTRARE A VIDEO UN ALERT CHE CI AVVISI */}
           <h2 className="mb-3 h4">{props.search}</h2>
@@ -66,13 +52,25 @@ const Home = (props) => {
               </Spinner>
             </div>
           )}
-          <Row xs={1} sm={2} md={4} lg={6} className="g-2">
-            {films.map((film, index) => (
-              <Col key={index}>
-                <Link to={`/movie-details/${film.imdbID}`}>
-                  <Image src={film.Poster} fluid />
-                </Link>
-              </Col>
+          <Row xs={1} sm={2} md={4} lg={5} xl={6} className="g-4">
+            {films.map((film) => (
+              // <Col key={index}>
+              //   <Link to={`/movie-details/${film.imdbID}`}>
+              //     <Image src={film.Poster} fluid />
+              //   </Link>
+              // </Col>
+              // <Col key={film.imdbID}>
+              //   <Card bg="transparent" className="text-center text-light d-flex flex-column h-100">
+              //     <Card.Img src={film.Poster} className="img-fluid mb-3" />
+              //     <Card.Body className="d-flex flex-column justify-content-between p-0">
+              //       <Card.Title className="mb-3">{film.Title}</Card.Title>
+              //       <Link to={`/movie-details/${film.imdbID}`}>
+              //         <Button variant="light">Mostra dettagli</Button>
+              //       </Link>
+              //     </Card.Body>
+              //   </Card>
+              // </Col>
+              <SingleMovie key={film.imdbID} film={film} />
             ))}
           </Row>
         </Container>
